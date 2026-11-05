@@ -1,0 +1,35 @@
+{
+  "name": "smarttrust-monorepo",
+  "version": "1.0.0",
+  "description": "SmartTrust Dairy Plant Management System - Monorepo",
+  "private": true,
+  "scripts": {
+    "setup": "npm install && npm run db:reset",
+    "install:all": "npm install && npm run install:db",
+    "install:db": "cd database && npm install",
+    "install:backend": "cd backend && npm install",
+    "install:frontend": "cd frontend && npm install",
+    "db:setup": "node database/migrate.js && node database/seed.js",
+    "db:migrate": "node database/migrate.js",
+    "db:seed": "node database/seed.js",
+    "db:reset": "node database/reset.js && node database/migrate.js && node database/seed.js",
+    "db:verify": "node database/verify-database.js",
+    "db:test": "node database/test-constraints.js",
+    "dev": "concurrently -n backend,frontend -c blue,green \"npm run dev --prefix backend\" \"npm run dev --prefix frontend\"",
+    "dev:backend": "npm run dev --prefix backend",
+    "dev:frontend": "npm run dev --prefix frontend",
+    "test": "node tests/run-all-tests.js",
+    "test:api": "node tests/api/run-api-tests.js",
+    "test:security": "node tests/security/run-security-tests.js",
+    "test:e2e": "node tests/e2e/run-e2e-tests.js",
+    "test:all": "npm run db:test && npm run test:api && npm run test:security && npm run test:e2e",
+    "contract:audit": "node tests/contract-audit.js"
+  },
+  "devDependencies": {
+    "concurrently": "^9.1.0"
+  },
+  "dependencies": {
+    "better-sqlite3": "^11.5.0",
+    "bcrypt": "^5.1.1"
+  }
+}
