@@ -1,0 +1,48 @@
+# SMARTTRUST Dairy Plant Analytics Engine Configuration
+# Problem Statement ID: DL-SJBIT-HK26-GOVP010 | LAKSHYA 2026 Hackathon
+# All thresholds, window sizes, and severity cutoffs are defined here. No magic numbers in code.
+
+data_source_default: "REAL"
+
+energy:
+  baseline_window_days: 30
+  baseline_method: "median"  # fallback: "mean"
+  min_history_records: 7
+  threshold_low_pct: 15.0
+  threshold_med_pct: 30.0
+  threshold_high_pct: 50.0
+  robust_zscore_threshold: 2.5
+  divide_by_zero_epsilon: 0.000001
+  enable_isolation_forest: false
+  isolation_forest_contamination: 0.05
+  isolation_forest_min_samples: 10
+  random_seed: 42
+
+hygiene:
+  compliance_band_critical: 60.0  # < 60% compliance -> CRITICAL
+  compliance_band_high: 75.0      # < 75% compliance -> HIGH
+  compliance_band_medium: 90.0    # < 90% compliance -> MEDIUM
+  compliance_band_low: 98.0       # < 98% compliance -> LOW
+  repeated_missed_threshold_count: 3
+  repeated_missed_window_days: 7
+
+waste:
+  milk_loss_pct_low: 1.5
+  milk_loss_pct_med: 3.0
+  milk_loss_pct_high: 5.0
+  milk_loss_pct_critical: 10.0
+  default_packaging_per_unit_ratio: 1.0
+  damaged_pkg_pct_low: 2.0
+  damaged_pkg_pct_med: 5.0
+  damaged_pkg_pct_high: 10.0
+  damaged_pkg_pct_critical: 20.0
+  excess_pkg_pct_low: 5.0
+  excess_pkg_pct_med: 10.0
+  excess_pkg_pct_high: 20.0
+  excess_pkg_pct_critical: 35.0
+  divide_by_zero_epsilon: 0.000001
+  candidate_investigation_reasons:
+    - "damaged in process"
+    - "rejected in quality inspection"
+    - "over-issuance or handling spoilage"
+    - "recording or count reporting error"

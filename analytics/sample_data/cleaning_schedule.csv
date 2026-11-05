@@ -1,0 +1,4 @@
+equipment_id,equipment_name,required_frequency,required_times_per_period,data_source
+PAST_01,Pasteurizer 01,daily,1.0,SIMULATED
+TANK_01,Raw Milk Silo 01,daily,1.0,SIMULATED
+PKG_LINE_01,Pouch Packaging Machine,daily,1.0,SIMULATED
