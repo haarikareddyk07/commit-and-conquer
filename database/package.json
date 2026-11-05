@@ -1,0 +1,17 @@
+{
+  "name": "smarttrust-database",
+  "version": "1.0.0",
+  "description": "SmartTrust Dairy Plant SQLite Database Layer",
+  "main": "schema.sql",
+  "scripts": {
+    "migrate": "node migrate.js",
+    "seed": "node seed.js",
+    "reset": "node reset.js",
+    "test": "node test-constraints.js",
+    "verify": "node verify-database.js"
+  },
+  "dependencies": {
+    "better-sqlite3": "^11.5.0",
+    "bcrypt": "^5.1.1"
+  }
+}
