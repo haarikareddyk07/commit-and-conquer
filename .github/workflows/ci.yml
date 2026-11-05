@@ -1,0 +1,48 @@
+name: SmartTrust CI Pipeline
+
+on:
+  push:
+    branches: [ main, develop, feature/** ]
+  pull_request:
+    branches: [ main, develop ]
+
+jobs:
+  audit-and-test:
+    name: Contract Audit, Database Verification & API Tests
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Check out repository
+        uses: actions/checkout@v4
+
+      - name: Setup Node.js 20
+        uses: actions/setup-node@v4
+        with:
+          node-version: 20
+          cache: 'npm'
+
+      - name: Install root and database dependencies
+        run: |
+          npm install
+          cd database && npm install
+
+      - name: Run Database Verification Suite
+        run: |
+          npm run db:verify
+          npm run db:test
+
+      - name: Run Contract Audit
+        run: |
+          node tests/contract-audit.js
+
+      - name: Run API Integration Tests
+        run: |
+          node tests/api/run-api-tests.js
+
+      - name: Run Security and Privacy Audit
+        run: |
+          node tests/security/run-security-tests.js
+
+      - name: Run End-to-End Headless Tests
+        run: |
+          node tests/e2e/run-e2e-tests.js
